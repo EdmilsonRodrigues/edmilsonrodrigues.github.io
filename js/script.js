@@ -1,3 +1,4 @@
+const cardsPerPage = 3;
 const projects = [
     {
         title: "Project One",
@@ -13,6 +14,21 @@ const projects = [
         title: "Project Three",
         description: "A brief description of Project Three.",
         link: "https://github.com/yourusername/project-three",
+    },
+    {
+        title: "Project Four",
+        description: "A brief description of Project Four.",
+        link: "https://github.com/yourusername/project-four",
+    },
+    {
+        title: "Project Five",
+        description: "A brief description of Project Five.",
+        link: "https://github.com/yourusername/project-five",
+    },
+    {
+        title: "Project Six",
+        description: "A brief description of Project Six.",
+        link: "https://github.com/yourusername/project-six",
     },
 ]
 
@@ -34,63 +50,78 @@ const contributions = [
     },
 ]
 
-function fillProjects() {
-    const projectsContainer = document.querySelector("#projects > .card-container")
-    if (!projectsContainer) {
-        console.log("ERROR")
-        return
+/**
+ * Loads the given cards into the given container, with pagination.
+ * @param {any[]} cards The cards to load
+ * @param {string} containerId The id of the container to load the cards into
+ */
+function loadCards(cards, containerId) {
+    let currentPage = 1
+    const totalPages = Math.ceil(cards.length / cardsPerPage)
+    const previousButton = document.querySelector(`#${containerId} > .pagination > .prev-button`)
+    previousButton.disabled = true
+    const nextButton = document.querySelector(`#${containerId} > .pagination > .next-button`)
+    if (currentPage === totalPages) {
+        nextButton.disabled = true
     }
-    for (const project of projects) {
-        const projectCard = document.createElement("div")
-        projectCard.className = "card"
-        
-        const projectTitle = document.createElement("h3")
-        projectTitle.innerHTML = project.title
-        projectCard.appendChild(projectTitle)
-        
-        const projectDescription = document.createElement("p")
-        projectCard.appendChild(projectDescription)
-
-        projectDescription.innerHTML = project.description
-        const projectLink = document.createElement("a")
-        projectLink.href = project.link
-        projectLink.target = "_blank"
-        projectLink.innerHTML = "Learn More"
-        projectCard.appendChild(projectLink)
-
-        projectsContainer.appendChild(projectCard)
+    previousButton.addEventListener("click", () => {
+        if (--currentPage < 1) currentPage = 1
+        paginateCards()
+        if (currentPage == 1) {
+            previousButton.disabled = true
+        }
+        nextButton.disabled = false
+    })
+    nextButton.addEventListener("click", () => {
+        if (++currentPage > totalPages) currentPage = totalPages
+        console.log(currentPage, totalPages)
+        paginateCards()
+        if (currentPage === totalPages) {
+            nextButton.disabled = true
+        }
+        previousButton.disabled = false
+    })
+    function paginateCards() {
+        let paginatedCards = cards.slice(((currentPage - 1) * cardsPerPage), (currentPage * cardsPerPage))
+        if (paginatedCards == []) return
+        console.log(paginatedCards)
+        fillCards(paginatedCards, containerId)
     }
+    paginateCards()
 }
 
-function fillContributions() {
-    const contributionsContainer = document.querySelector("#contributions > .card-container")
-    if (!contributionsContainer) {
-        console.log("ERROR")
-        return
+/**
+ * Populates a specified card container with card elements.
+ *
+ * @param {any[]} cards - An array of card objects, each containing a title, description, and link.
+ * @param {string} containerId - The ID of the container where cards will be inserted.
+ */
+function fillCards(cards, containerId) {
+    const cardsContainer = document.querySelector(`#${containerId} > .pagination > .card-container`)
+    cardsContainer.innerHTML = ''
+    for (const card of cards) {
+        const cardCard = document.createElement("div")
+        cardCard.className = "card"
+
+        const cardTitle = document.createElement("h3")
+        cardTitle.innerHTML = card.title
+        cardCard.appendChild(cardTitle)
+
+        const cardDescription = document.createElement("p")
+        cardCard.appendChild(cardDescription)
+
+        cardDescription.innerHTML = card.description
+        const cardLink = document.createElement("a")
+        cardLink.href = card.link
+        cardLink.target = "_blank"
+        cardLink.innerHTML = "Learn More"
+        cardCard.appendChild(cardLink)
+
+        cardsContainer.appendChild(cardCard)
     }
-    for (const contribution of contributions) {
-        const contributionCard = document.createElement("div")
-        contributionCard.className = "card"
-        
-        const contributionTitle = document.createElement("h3")
-        contributionTitle.innerHTML = contribution.title
-        contributionCard.appendChild(contributionTitle)
-        
-        const contributionDescription = document.createElement("p")
-        contributionCard.appendChild(contributionDescription)
-
-        contributionDescription.innerHTML = contribution.description
-        const contributionLink = document.createElement("a")
-        contributionLink.href = contribution.link
-        contributionLink.target = "_blank"
-        contributionLink.innerHTML = "Learn More"
-        contributionCard.appendChild(contributionLink)
-
-        contributionsContainer.appendChild(contributionCard)
-    }    
 }
 
 (() => {
-    fillProjects();
-    fillContributions();
+    loadCards(projects, "projects")
+    loadCards(contributions, "contributions")
 })();
