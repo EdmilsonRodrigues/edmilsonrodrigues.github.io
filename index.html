@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Edmilson Rodrigues</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
 <body>
@@ -24,15 +26,30 @@
         </ul>
         <section id="technologies">
             <h2>Known Technologies</h2>
-            <p>List of technologies you are familiar with.</p>
+            <div class="scroll-container">
+                <div id="cardContainer" class="moving-card-container">
+                    <!-- <div class="moving-card">
+                        <img src="assets/angular-icon.png" alt="image-alt">
+                        <h3 class="moving-card-title">Anguar</h3>
+                    </div> -->
+                </div>
+            </div>
         </section>
         <section id="projects">
             <h2>Projects</h2>
             <div class="pagination">
-                <button class="prev-button"></button>
+                <button class="prev-button">
+                    <span class="material-symbols-outlined">
+                        arrow_back_ios
+                    </span>
+                </button>
                 <div class="card-container">
                 </div>
-                <button class="next-button"></button>
+                <button class="next-button">
+                    <span class="material-symbols-outlined">
+                        arrow_forward_ios
+                    </span>
+                </button>
             </div>
         </section>
 

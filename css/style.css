@@ -40,39 +40,91 @@ section {
 }
 
 .card-container {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin: 20px 0;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px 0;
 }
 
 .pagination {
-  margin-top: 20px;
-  text-align: center;
-  display: flex;
-  justify-content: space-between;
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.scroll-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.moving-card-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.moving-card {
+    flex: 0 0 auto;
+    width: 200px;
+    padding: 15px;
+    background: #ffffff69;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.moving-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.moving-card-title {
+    margin: 10px 0 0;
+    font-size: 16px;
+    text-align: center;
+    color: black;
+}
+
+/* Animate the cards */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-268%);
+    }
+}
+
+.animate {
+    animation: scroll 20s linear infinite;
 }
 
 .prev-button {
-  margin-right: auto;
+    margin-right: auto;
 }
 
 .next-button {
-  margin-left: auto;
+    margin-left: auto;
 }
 
-.prev-button, .next-button {
-  background-color: #1e1e1e;
-  color: #ffffff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
+.prev-button,
+.next-button {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.prev-button:disabled, .next-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.prev-button:disabled,
+.next-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .card {
@@ -102,4 +154,3 @@ footer {
     padding: 20px;
     background-color: #1e1e1e;
 }
-
