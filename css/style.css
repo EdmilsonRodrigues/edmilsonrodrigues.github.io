@@ -69,7 +69,7 @@ section {
     flex: 0 0 auto;
     width: 200px;
     padding: 15px;
-    background: #ffffff69;
+    background: #3d3d3dc0;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -85,7 +85,6 @@ section {
     margin: 10px 0 0;
     font-size: 16px;
     text-align: center;
-    color: black;
 }
 
 /* Animate the cards */
